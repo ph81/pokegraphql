@@ -1,26 +1,22 @@
-import logo from './logo.svg';
+import React from 'react';
+import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
+import PokeContainer from './pages/PokeContainer';
 import './App.css';
 
-function App() {
+const App = () => {
+  const client = new ApolloClient({
+    uri: 'https://graphql-pokemon2.vercel.app',
+    cache: new InMemoryCache(),
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>Pokegraphql</h1>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ApolloProvider client={client}>
+      <main>
+        <h1>PokeGraphQL</h1>
+        <PokeContainer />
+      </main>
+    </ApolloProvider>
   );
-}
+};
 
 export default App;
